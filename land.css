@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Land Andika";
+  src: url("fonts/Andika-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   color-scheme: light;
   --ink: #202b25;
@@ -40,6 +47,7 @@ rt { font-size: .55em; }
 main { padding-block: 1.25rem 2rem; min-height: 68vh; }
 footer { padding-block: 1rem 2rem; border-top:1px solid var(--line); font-size:.9rem; }
 .skip { position: fixed; top:.5rem; left:.5rem; z-index:9; background:white; padding:.5rem; transform:translateY(-250%); }
+.skip:not(:focus) { clip-path:inset(50%); pointer-events:none; }
 .skip:focus { transform:none; }
 .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 .primary,.quiet,.text-button { display:inline-flex; align-items:center; justify-content:center; gap:.4rem; padding:.58rem .88rem; border:1px solid transparent; border-radius:.72rem; min-height:44px; line-height:1.35; text-align:center; font-weight:800; text-decoration:none; }
@@ -85,7 +93,7 @@ footer { padding-block: 1rem 2rem; border-top:1px solid var(--line); font-size:.
 .sample { text-align:center; padding:.68rem .25rem; border-radius:.8rem; border:1px solid #d4dcc9; background:#f5f8ed; display:grid; justify-items:center; align-content:space-between; gap:.46rem; }
 .sample strong,.problem-kana strong { font-size:clamp(1.25rem,4vw,2rem); line-height:1.33; }
 .tiles { display:flex; flex-wrap:wrap; justify-content:center; gap:.24rem; }
-.tile,.latin,.model-answer { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-weight:750; }
+.tile,.latin,.model-answer,#full-answer { font-family:"Land Andika","Century Gothic",sans-serif; font-weight:400; }
 .tile { display:inline-grid; min-width:1.24em; min-height:1.48em; place-items:center; border:1px solid #bdc8b9; border-radius:.34em; padding:.05em .22em; font-size:clamp(1.15rem,4vw,2.25rem); line-height:1.25; background:white; white-space:nowrap; }
 .tile.marked { border:2px solid var(--accent); background:#ffecc0; color:#69301b; box-shadow:inset 0 -3px 0 #d99361; }
 .tile.blank { border-style:dashed; }
@@ -157,6 +165,7 @@ th:first-child { width:4.1rem; }
 .ime-output output { font-size:1.27rem; line-height:1.2; font-weight:800; overflow-wrap:anywhere; }
 #ime-status { min-height:1.62em; }
 .ime-keys { justify-content:start; }
+.ime-keys .latin { font-family:ui-monospace,Consolas,monospace; font-weight:750; }
 .ime-board-controls { margin-top:.9rem; }
 .finger-board { margin:.48rem 0 .6rem; background:#e8f1ef; border:1px solid #becfca; border-radius:.85rem; padding:clamp(.38rem,1.45vw,.82rem); }
 .finger-head { display:flex; flex-wrap:wrap; gap:.2rem .6rem; align-items:center; justify-content:space-between; padding:0 .2rem .43rem; }
@@ -178,9 +187,16 @@ button.keycap { align-self:stretch; display:grid; align-items:start; }
 .paper-word { padding:.8rem 0; border-top:1px solid var(--line); }
 .paper-word:last-child { padding-bottom:0; }
 .paper-word h3 { margin:0 0 .2rem; }
-.paper-line { display:block; border-bottom:1px dashed #6b796d; height:1.8rem; margin-bottom:.25rem; }
+.four-lines { --writing-step:.5078125em; --writing-padding:.045em; position:relative; font-size:clamp(2rem,6vw,3.2rem); height:calc(3 * var(--writing-step) + 2 * var(--writing-padding)); max-width:32rem; margin:.52rem 0 .3rem; }
+.four-lines canvas,.writing-rules { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.writing-rule { position:absolute; left:0; right:0; border-top:1px solid #829589; }
+.writing-rule:nth-child(1) { top:var(--writing-padding); }
+.writing-rule:nth-child(2) { top:calc(var(--writing-padding) + var(--writing-step)); border-top-style:dashed; }
+.writing-rule:nth-child(3) { top:calc(var(--writing-padding) + 2 * var(--writing-step)); border-color:#35664e; border-top-width:2px; }
+.writing-rule:nth-child(4) { top:calc(var(--writing-padding) + 3 * var(--writing-step)); }
 .paper-set summary { cursor:pointer; font-weight:750; min-height:44px; padding:.46rem 0; }
-.paper-set details p { padding:.35rem .5rem; background:var(--mint); border-radius:.4rem; }
+.paper-models { padding:.2rem .65rem .45rem; background:#f1f6e9; border-radius:.45rem; }
+.paper-models p { font-size:.9rem; margin-top:.55rem; }
 .symbols { margin:.42rem 0 0; }
 .symbols button { min-width:44px; }
 @media(max-width:52rem) {
@@ -206,9 +222,10 @@ button.keycap { align-self:stretch; display:grid; align-items:start; }
   th:first-child { width:3.15rem; }
 }
 @media print {
-  body { background:white; }
+  body,.paper-set { background:white; }
   .site-header,.site-nav,footer,.skip,.paper-controls,.page-title > p,.paper-set details,.paper-word .quiet { display:none; }
   main { width:100%; padding:0; }
   .paper-set { box-shadow:none; border:0; }
   .paper-word { break-inside:avoid; }
+  .paper-word .four-lines { font-size:28pt; max-width:none; }
 }

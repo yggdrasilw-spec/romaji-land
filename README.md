@@ -4,6 +4,7 @@
 
 - 国語のつづりは[令和７年内閣告示](https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/roma/index2.html)を参照しています。
 - 「紙に書く」は、書いたあとに見本を開けます。問題だけを印刷することもできます。
+- 書き取りには、Andikaの中央の文字高を基準にした等間隔の四線を使います。Andika 7.000（SIL Global）は [SIL Open Font License](fonts/OFL-Andika.txt) で同梱しています。
 - 「パソコン入力」では、F・J のホームポジションと、キーごとの指の動きを表示します。入力結果は、収録された語を対象に日本語入力のしくみを再現します。
 - 練習結果は利用中のブラウザに保存されます。アカウント登録は不要です。
 

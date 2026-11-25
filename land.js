@@ -372,9 +372,16 @@
       stages.map(entry => '<option value="' + entry.id + '"' + (entry===stage?' selected':'') + '>' + entry.title + '</option>').join('') +
       '</select></div><section class="board paper-set"><h2>' + stage.title + '</h2>' +
       paper[stage.id].map(([kana,answer,clue]) => '<article class="paper-word"><h3>' + escape(kana) + '</h3>' +
-        listen(kana) + '<span class="paper-line" aria-hidden="true"></span><details><summary>書いたら 見本を見る</summary><p>' +
-        latin(answer) + '　' + escape(clue) + '</p></details></article>').join('') + '</section>' +
+        listen(kana) + fourLines() + '<details class="paper-example"><summary>書いたら 見本を見る</summary><div class="paper-models">' +
+        answer.split(' ／ ').map(word => fourLines(word)).join('') + '<p>' + escape(clue) + '</p></div></details></article>').join('') + '</section>' +
       '<div class="actions paper-controls">' + action('print','印刷する','quiet') + '<a class="quiet" href="#lesson/' + stage.id + '">見本で れんしゅう</a></div>';
+    LandWriting.load(app);
+  }
+
+  function fourLines(word = '') {
+    return '<div class="four-lines"' + (word ? ' data-word="' + escape(word) + '"' : ' aria-hidden="true"') + '>' +
+      '<span aria-hidden="true" class="writing-rules">' + '<i class="writing-rule"></i>'.repeat(4) + '</span>' +
+      (word ? '<canvas aria-hidden="true"></canvas><span class="sr" lang="en">' + escape(word) + '</span>' : '') + '</div>';
   }
 
   function showTeacher() {
